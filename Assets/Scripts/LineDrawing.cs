@@ -8,6 +8,7 @@ public class LineDrawing : MonoBehaviour
     [SerializeField] private LineRenderer _lineRenderer; // получаем доступ к линии
     [SerializeField] private float _minDistanceBetweenLastPointAndCurrentPoint = 0.1f; // поле для хранения минимальной дистанции между последней точкой и текущей точкой
     [SerializeField] private UnityEvent OnBoxMove;
+    private bool _isDrawingDisable;
 
 
     private void Update()
@@ -17,6 +18,10 @@ public class LineDrawing : MonoBehaviour
 
     private void Draw() //метод для рисования линии
     {
+        if (_isDrawingDisable)
+        {
+            return;
+        }
         if (Input.GetMouseButton(0)) // если нажата левая кнопка мыши, то
         {
             var mousePosition = Input.mousePosition; // получаем точку мыши
@@ -43,6 +48,7 @@ public class LineDrawing : MonoBehaviour
         
         if (Input.GetMouseButtonUp(0)) //если подняли левую кнопку мыши, то закончили рисовать линию
         {
+            _isDrawingDisable = true;
             OnBoxMove.Invoke(); // когда подняли левую кнопу мыши, вызываем событие
         }
         

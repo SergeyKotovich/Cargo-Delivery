@@ -6,6 +6,7 @@ using UnityEngine.Events;
 public class BoxController : MonoBehaviour
 {
     [SerializeField] private UnityEvent OnMissionFailed;
+    [SerializeField] private UnityEvent OnMissionComleted;
     [SerializeField] private GameObject _rope; 
     [SerializeField] private float _speed = 1f ;
 
@@ -70,5 +71,6 @@ public class BoxController : MonoBehaviour
         
         // Когда ящик занял нужную позицию - отцепляем ящик от веревки
         _ropeAttachment.enabled = false;
+        OnMissionComleted.Invoke();
     }
 }
