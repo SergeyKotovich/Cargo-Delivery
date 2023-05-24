@@ -1,14 +1,16 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using Obi;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class BoxController : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject _rope;
-    [SerializeField] 
-    private float _speed = 1;
+    [SerializeField] private UnityEvent OnMissionFailed;
+    [SerializeField] private GameObject _rope; 
+    [SerializeField] private float _speed = 1f ;
+
+    
+    
 
     private ObiParticleAttachment _ropeAttachment;
 
@@ -26,12 +28,12 @@ public class BoxController : MonoBehaviour
         }
     }
 
-    
-
     private void OnCollisionEnter()
     {
         // Отцепляем ящик от веревки
         _ropeAttachment.enabled = false;
+        OnMissionFailed.Invoke();
+        
     }
 
     // TODO: Вызовите данный метод, когда ящик на веревке окажется над финишной точкой 
